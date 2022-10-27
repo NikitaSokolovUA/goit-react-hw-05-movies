@@ -46,7 +46,9 @@ const MovieDetails = () => {
           </div>
           <ul>
             <li>
-              <Link to="cast">Cast</Link>
+              <Link to="cast" state={movieId}>
+                Cast
+              </Link>
             </li>
             <li>
               <Link to="reviews">Reviews</Link>

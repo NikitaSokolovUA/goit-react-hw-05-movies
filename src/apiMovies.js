@@ -42,3 +42,18 @@ export const apiById = async (id, controller) => {
   
 }
 
+export const apiCast = async (id, controller) => {
+    
+
+    const SEARCH_URL = `https://api.themoviedb.org/3/movie/${id}/credits?`
+    const options = {
+        params: {
+            api_key: API_KEY,
+            signal: controller.signal
+        }
+    }    
+    const responce = await axios.get(SEARCH_URL, options)   
+    return await responce.data
+  
+}
+
