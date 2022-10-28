@@ -1,5 +1,5 @@
 import { apiById } from 'apiMovies';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useParams, Outlet, useLocation } from 'react-router-dom';
 import {
   ContainerMovie,
@@ -79,7 +79,9 @@ const MovieDetails = () => {
               </ItemMoreInfo>
             </li>
           </ListMoreInfo>
-          <Outlet />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Outlet />
+          </Suspense>
         </>
       )}
     </>
