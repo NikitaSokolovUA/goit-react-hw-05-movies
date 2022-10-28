@@ -1,18 +1,18 @@
 import { apiReviews } from 'apiMovies';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { DateUpdate, Review } from './Reviews.styled';
 
 const Reviews = () => {
-  const { state } = useLocation();
   const [reviews, setReviews] = useState([]);
+  const { movieId } = useParams();
 
   useEffect(() => {
     const controller = new AbortController();
 
     const getReviews = async () => {
       try {
-        const responce = await apiReviews(state.id, controller);
+        const responce = await apiReviews(movieId, controller);
         setReviews(responce.results);
       } catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ const Reviews = () => {
     getReviews();
 
     return () => controller.abort();
-  }, [state]);
+  }, [movieId]);
 
   return (
     <ul>
@@ -35,7 +35,9 @@ const Reviews = () => {
           </Review>
         ))
       ) : (
-        <p>sorry no one review</p>
+        <Review>
+          <p>Sorry no Reviews</p>
+        </Review>
       )}
     </ul>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { apiCast } from 'apiMovies';
 import {
   ActorImage,
@@ -12,15 +12,15 @@ import {
 const DEFAULT_URL = 'https://image.tmdb.org/t/p/w500';
 
 const Cast = () => {
-  const { state } = useLocation();
   const [actors, setActors] = useState(null);
+  const { movieId } = useParams();
 
   useEffect(() => {
     const controller = new AbortController();
 
     const apiActors = async () => {
       try {
-        const responce = await apiCast(state.id, controller);
+        const responce = await apiCast(movieId, controller);
         setActors(responce.cast);
       } catch (error) {
         console.log(error);
@@ -30,7 +30,7 @@ const Cast = () => {
     apiActors();
 
     return () => controller.abort();
-  }, [state]);
+  }, [movieId]);
 
   return (
     <>

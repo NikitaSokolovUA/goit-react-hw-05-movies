@@ -53,7 +53,10 @@ const MovieDetails = () => {
                 release: <Description>{film.release_date}</Description>
               </DescriptionTitle>
               <DescriptionTitle>
-                avarage vote: <Description>{film.vote_average}</Description>
+                avarage vote:{' '}
+                <Description>
+                  {Math.round(film.vote_average * 10) / 10}
+                </Description>
               </DescriptionTitle>
               <Description>{film.overview}</Description>
               <DescriptionTitle>
