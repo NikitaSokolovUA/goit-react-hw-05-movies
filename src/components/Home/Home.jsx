@@ -1,10 +1,11 @@
 import { apiTrendMovies } from 'apiMovies';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FilmTitle, TrendTitle } from './Home.style';
 
 const Home = () => {
   const [films, setFilms] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -32,7 +33,7 @@ const Home = () => {
         <ul>
           {films.map(({ id, title }) => (
             <li key={id}>
-              <Link to={`/movies/${id}`}>
+              <Link to={`/movies/${id}`} state={{ from: location.pathname }}>
                 <FilmTitle>{title}</FilmTitle>
               </Link>
             </li>

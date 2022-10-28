@@ -43,3 +43,15 @@ export const ItemMoreInfo = styled(Link)`
     color: #2196f3;
   }
 `;
+
+export const GoBack = styled(Link)`
+  font-weight: 700;
+  font-size: 20px;
+  color: black;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  :hover,
+  :focus {
+    color: #2196f3;
+  }
+`;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   SearchForm,
   SearchFormButton,
@@ -13,6 +13,7 @@ import { FilmTitle } from 'components/Home/Home.style';
 const Movies = () => {
   const [input, setInput] = useState('');
   const [searchFilms, setSearchFilms] = useState(null);
+  const location = useLocation();
 
   const handleInputChange = e => {
     setInput(e.target.value);
@@ -54,7 +55,7 @@ const Movies = () => {
         <ul>
           {searchFilms.map(({ id, title }) => (
             <li key={id}>
-              <Link to={`/movies/${id}`}>
+              <Link to={`/movies/${id}`} state={{ from: location.pathname }}>
                 <FilmTitle>{title}</FilmTitle>
               </Link>
             </li>

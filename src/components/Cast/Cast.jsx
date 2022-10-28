@@ -20,7 +20,7 @@ const Cast = () => {
 
     const apiActors = async () => {
       try {
-        const responce = await apiCast(state, controller);
+        const responce = await apiCast(state.id, controller);
         setActors(responce.cast);
       } catch (error) {
         console.log(error);

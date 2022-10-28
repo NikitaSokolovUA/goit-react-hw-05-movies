@@ -1,6 +1,6 @@
 import { apiById } from 'apiMovies';
 import { useEffect, useState } from 'react';
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import {
   ContainerMovie,
   DescriptionTitle,
@@ -9,6 +9,7 @@ import {
   TitleFilm,
   ListMoreInfo,
   ItemMoreInfo,
+  GoBack,
 } from './MovieDetails.styled';
 
 const DEFAULT_URL = 'https://image.tmdb.org/t/p/w500';
@@ -16,6 +17,9 @@ const DEFAULT_URL = 'https://image.tmdb.org/t/p/w500';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [film, setFilm] = useState(null);
+  const location = useLocation();
+
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     const controller = new AbortController();
@@ -38,6 +42,7 @@ const MovieDetails = () => {
 
   return (
     <>
+      <GoBack to={backLinkHref}>Go Back</GoBack>
       {film && (
         <>
           <ContainerMovie>
@@ -61,12 +66,12 @@ const MovieDetails = () => {
           </ContainerMovie>
           <ListMoreInfo>
             <li>
-              <ItemMoreInfo to="cast" state={movieId}>
+              <ItemMoreInfo to="cast" state={{ id: movieId }}>
                 Cast
               </ItemMoreInfo>
             </li>
             <li>
-              <ItemMoreInfo to="reviews" state={movieId}>
+              <ItemMoreInfo to="reviews" state={{ id: movieId }}>
                 Reviews
               </ItemMoreInfo>
             </li>

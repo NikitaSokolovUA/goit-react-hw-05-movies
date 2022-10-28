@@ -12,7 +12,7 @@ const Reviews = () => {
 
     const getReviews = async () => {
       try {
-        const responce = await apiReviews(state, controller);
+        const responce = await apiReviews(state.id, controller);
         setReviews(responce.results);
       } catch (error) {
         console.log(error);
@@ -26,14 +26,17 @@ const Reviews = () => {
 
   return (
     <ul>
-      {reviews &&
+      {reviews.length !== 0 ? (
         reviews.map(({ id, author, content, updated_at }) => (
           <Review key={id}>
             <h3>{author}</h3>
             <p>{content}</p>
             <DateUpdate>{updated_at}</DateUpdate>
           </Review>
-        ))}
+        ))
+      ) : (
+        <p>sorry no one review</p>
+      )}
     </ul>
   );
 };
