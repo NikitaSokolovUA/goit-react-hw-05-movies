@@ -8,6 +8,7 @@ import {
   Icon,
 } from './Movies.styled';
 import { apiByNameMovies } from 'apiMovies';
+import { FilmTitle } from 'components/Home/Home.style';
 
 const Movies = () => {
   const [input, setInput] = useState('');
@@ -48,12 +49,13 @@ const Movies = () => {
           onChange={handleInputChange}
         />
       </SearchForm>
+
       {searchFilms && (
         <ul>
           {searchFilms.map(({ id, title }) => (
             <li key={id}>
               <Link to={`/movies/${id}`}>
-                <p>{title}</p>
+                <FilmTitle>{title}</FilmTitle>
               </Link>
             </li>
           ))}

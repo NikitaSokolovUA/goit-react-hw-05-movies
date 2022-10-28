@@ -1,6 +1,7 @@
 import { apiTrendMovies } from 'apiMovies';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FilmTitle, TrendTitle } from './Home.style';
 
 const Home = () => {
   const [films, setFilms] = useState(null);
@@ -26,13 +27,13 @@ const Home = () => {
 
   return (
     <>
-      <h1>Trending today</h1>
+      <TrendTitle>Trending today</TrendTitle>
       {films && (
         <ul>
           {films.map(({ id, title }) => (
             <li key={id}>
               <Link to={`/movies/${id}`}>
-                <p>{title}</p>
+                <FilmTitle>{title}</FilmTitle>
               </Link>
             </li>
           ))}

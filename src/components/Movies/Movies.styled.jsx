@@ -4,10 +4,14 @@ import { GrFormSearch } from 'react-icons/gr';
 export const SearchForm = styled.form`
   display: flex;
   align-items: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
   max-width: 600px;
   background-color: #fff;
   border-radius: 3px;
+  border: 1px solid black;
   overflow: hidden;
 `;
 
