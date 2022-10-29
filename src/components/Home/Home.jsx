@@ -15,11 +15,12 @@ const Home = () => {
         const trendMovies = await apiTrendMovies(controller.signal);
         setFilms(trendMovies.results);
       } catch (error) {
-        console.log(error);
+        console.log(`упс ${error}`);
       }
     };
 
     trendMovies();
+    localStorage.clear();
 
     return () => {
       controller.abort();

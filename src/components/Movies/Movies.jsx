@@ -12,7 +12,9 @@ import { FilmTitle } from 'components/Home/Home.style';
 
 const Movies = () => {
   const [input, setInput] = useState('');
-  const [searchFilms, setSearchFilms] = useState(null);
+  const [searchFilms, setSearchFilms] = useState(
+    JSON.parse(localStorage.getItem('search')) || null
+  );
   const location = useLocation();
 
   const handleInputChange = e => {
@@ -26,6 +28,7 @@ const Movies = () => {
     try {
       const searchName = await apiByNameMovies(input, controller.signal);
       setSearchFilms(searchName.results);
+      localStorage.setItem('search', JSON.stringify(searchName.results));
     } catch (error) {
       console.log(error);
     }
