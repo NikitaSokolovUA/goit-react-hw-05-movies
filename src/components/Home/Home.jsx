@@ -2,6 +2,7 @@ import { apiTrendMovies } from 'apiMovies';
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FilmTitle, TrendTitle } from './Home.style';
+import PropTypes from 'prop-types';
 
 const Home = () => {
   const [films, setFilms] = useState(null);
@@ -46,3 +47,7 @@ const Home = () => {
 };
 
 export default Home;
+
+Home.propTypes = {
+  path: PropTypes.string.isRequired,
+};

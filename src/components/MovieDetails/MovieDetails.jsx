@@ -11,6 +11,7 @@ import {
   ItemMoreInfo,
   GoBack,
 } from './MovieDetails.styled';
+import PropTypes from 'prop-types';
 
 const DEFAULT_URL = 'https://image.tmdb.org/t/p/w500';
 
@@ -89,3 +90,10 @@ const MovieDetails = () => {
 };
 
 export default MovieDetails;
+
+MovieDetails.propTypes = {
+  path: PropTypes.string.isRequired,
+  state: PropTypes.shape({
+    from: PropTypes.string.isRequired,
+  }),
+};

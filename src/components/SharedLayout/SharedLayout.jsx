@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header, HeaderLink } from './SharedLayout.styled';
+import PropTypes from 'prop-types';
 
 const SharedLayout = () => {
   return (
@@ -19,3 +20,7 @@ const SharedLayout = () => {
 };
 
 export default SharedLayout;
+
+SharedLayout.propTypes = {
+  path: PropTypes.string.isRequired,
+};

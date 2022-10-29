@@ -9,6 +9,7 @@ import {
 } from './Movies.styled';
 import { apiByNameMovies } from 'apiMovies';
 import { FilmTitle } from 'components/Home/Home.style';
+import PropTypes from 'prop-types';
 
 const Movies = () => {
   const [input, setInput] = useState('');
@@ -70,3 +71,7 @@ const Movies = () => {
 };
 
 export default Movies;
+
+Movies.propTypes = {
+  path: PropTypes.string.isRequired,
+};
