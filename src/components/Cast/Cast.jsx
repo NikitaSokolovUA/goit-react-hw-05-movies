@@ -29,7 +29,9 @@ const Cast = () => {
 
     apiActors();
 
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+    };
   }, [movieId]);
 
   return (

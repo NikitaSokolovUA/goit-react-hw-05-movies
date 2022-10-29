@@ -21,7 +21,9 @@ const Reviews = () => {
 
     getReviews();
 
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+    };
   }, [movieId]);
 
   return (
