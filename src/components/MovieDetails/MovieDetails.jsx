@@ -11,16 +11,21 @@ import {
   ItemMoreInfo,
   GoBack,
 } from './MovieDetails.styled';
-import PropTypes from 'prop-types';
 
 const DEFAULT_URL = 'https://image.tmdb.org/t/p/w500';
 
 const MovieDetails = () => {
-  const { movieId } = useParams();
   const [film, setFilm] = useState(null);
+  const [backLink, setBackLink] = useState('');
   const location = useLocation();
+  const { movieId } = useParams();
 
-  const backLinkHref = location.state?.from ?? '/';
+  useEffect(() => {
+    if (backLink !== '') {
+      return;
+    }
+    setBackLink(location.state?.from ?? '/Home');
+  }, [backLink, location]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -43,7 +48,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <GoBack to={backLinkHref}>Go Back</GoBack>
+      <GoBack to={backLink}>Go Back</GoBack>
       {film && (
         <>
           <ContainerMovie>
@@ -90,10 +95,3 @@ const MovieDetails = () => {
 };
 
 export default MovieDetails;
-
-MovieDetails.propTypes = {
-  path: PropTypes.string.isRequired,
-  state: PropTypes.shape({
-    from: PropTypes.string.isRequired,
-  }),
-};

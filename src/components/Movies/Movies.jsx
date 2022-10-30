@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import {
   SearchForm,
   SearchFormButton,
@@ -9,32 +9,39 @@ import {
 } from './Movies.styled';
 import { apiByNameMovies } from 'apiMovies';
 import { FilmTitle } from 'components/Home/Home.style';
-import PropTypes from 'prop-types';
 
 const Movies = () => {
   const [input, setInput] = useState('');
-  const [searchFilms, setSearchFilms] = useState(
-    JSON.parse(localStorage.getItem('search')) || null
-  );
+  const [searchFilms, setSearchFilms] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
+  const inputName = searchParams.get('name') ?? '';
 
-  const handleInputChange = e => {
-    setInput(e.target.value);
+  const handleSubmit = e => {
+    e.preventDefault();
+    setSearchParams({ name: input });
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+  useEffect(() => {
+    if (inputName === '') {
+      return;
+    }
+
     const controller = new AbortController();
 
-    try {
-      const searchName = await apiByNameMovies(input, controller.signal);
-      setSearchFilms(searchName.results);
-      localStorage.setItem('search', JSON.stringify(searchName.results));
-    } catch (error) {
-      console.log(error);
-    }
-    setInput('');
-  };
+    const getSearchApi = async () => {
+      try {
+        const searchName = await apiByNameMovies(inputName, controller.signal);
+        setSearchFilms(searchName.results);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getSearchApi();
+
+    return () => controller.abort();
+  }, [inputName]);
 
   return (
     <>
@@ -51,7 +58,7 @@ const Movies = () => {
           autoFocus
           placeholder="Search films"
           value={input}
-          onChange={handleInputChange}
+          onChange={e => setInput(e.target.value)}
         />
       </SearchForm>
 
@@ -59,7 +66,10 @@ const Movies = () => {
         <ul>
           {searchFilms.map(({ id, title }) => (
             <li key={id}>
-              <Link to={`/movies/${id}`} state={{ from: location.pathname }}>
+              <Link
+                to={`/movies/${id}`}
+                state={{ from: `${location.pathname}${location.search}` }}
+              >
                 <FilmTitle>{title}</FilmTitle>
               </Link>
             </li>
@@ -71,7 +81,3 @@ const Movies = () => {
 };
 
 export default Movies;
-
-Movies.propTypes = {
-  path: PropTypes.string.isRequired,
-};

@@ -2,7 +2,6 @@ import { apiReviews } from 'apiMovies';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DateUpdate, Review } from './Reviews.styled';
-import PropTypes from 'prop-types';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -47,7 +46,3 @@ const Reviews = () => {
 };
 
 export default Reviews;
-
-Reviews.propTypes = {
-  path: PropTypes.string.isRequired,
-};

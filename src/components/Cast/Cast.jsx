@@ -8,7 +8,6 @@ import {
   CastTitle,
   Character,
 } from './Cast.styled';
-import PropTypes from 'prop-types';
 
 const DEFAULT_URL = 'https://image.tmdb.org/t/p/w500';
 
@@ -66,7 +65,3 @@ const Cast = () => {
 };
 
 export default Cast;
-
-Cast.propTypes = {
-  path: PropTypes.string.isRequired,
-};
